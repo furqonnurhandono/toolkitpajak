@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id" data-akar="./">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toolkit Pajak</title>
+<meta name="description" content="Naskah UU perpajakan Indonesia, persandingan perubahan, dan alat hitung. Bukan aplikasi resmi pemerintah.">
+<meta name="theme-color" content="#0e6b4c">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="preload" href="./assets/fonts/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="./assets/css/app.css">
+</head>
+<body class="beranda">
+<a class="sr" href="#isi">Langsung ke isi</a>
+<header class="bar">
+  <a class="bar-home" href="./index.html"><img src="./icons/icon-192.png" alt=""><span>Toolkit Pajak</span></a>
+  <span class="bar-judul"></span>
+  <a class="bar-cari" href="./cari.html">Cari</a>
+</header>
+<main id="isi">
+<section class="pembuka">
+  <h1>Toolkit Pajak</h1>
+  <p>Naskah undang-undang perpajakan, persandingan perubahannya, dan alat hitung sederhana. Setelah dibuka sekali, semuanya bisa dibaca tanpa internet.</p>
+  <form class="kotak-cari" action="cari.html" role="search">
+    <label class="sr" for="q-beranda">Cari di semua naskah</label>
+    <input id="q-beranda" name="q" type="search" placeholder="Cari pasal atau kata, mis. pasal 31E" autocomplete="off">
+    <button class="tombol" type="submit">Cari</button>
+  </form>
+  <div class="pasang">
+    <button id="tombol-pasang" class="tombol garis" type="button" hidden>Pasang di HP</button>
+    <p id="petunjuk-ios" hidden>Di iPhone: ketuk tombol Bagikan di Safari, lalu pilih <em>Add to Home Screen</em>.</p>
+  </div>
+</section>
+
+<section class="bagian-beranda" aria-labelledby="h-uu">
+  <h2 id="h-uu">Undang-undang</h2>
+  <ul class="rak"><li><a href="uu/kup.html"><span class="singkat">KUP</span><span class="nama">Ketentuan Umum dan Tata Cara Perpajakan<span class="ket">81 pasal</span></span></a></li><li><a href="uu/pph.html"><span class="singkat">PPh</span><span class="nama">Pajak Penghasilan<span class="ket">48 pasal</span></span></a></li><li><a href="uu/ppn.html"><span class="singkat">PPN</span><span class="nama">Pajak Pertambahan Nilai Barang dan Jasa dan Pajak Penjualan atas Barang Mewah<span class="ket">35 pasal</span></span></a></li><li><a href="uu/pbb.html"><span class="singkat">PBB</span><span class="nama">Pajak Bumi dan Bangunan<span class="ket">31 pasal</span></span></a></li><li><a href="uu/bm.html"><span class="singkat">BM</span><span class="nama">Bea Meterai<span class="ket">32 pasal</span></span></a></li><li><a href="uu/ppsp.html"><span class="singkat">PPSP</span><span class="nama">Penagihan Pajak dengan Surat Paksa<span class="ket">45 pasal</span></span></a></li></ul>
+</section>
+
+<section class="bagian-beranda" aria-labelledby="h-sanding">
+  <h2 id="h-sanding">Persandingan perubahan</h2>
+  <ul class="daftar">
+    <li><a href="persandingan/index.html">Matriks pasal yang diubah UU Cipta Kerja dan UU HPP<small>12 pasal PPh, 9 pasal PPN</small></a></li>
+  </ul>
+</section>
+
+<section class="bagian-beranda" aria-labelledby="h-resume">
+  <h2 id="h-resume">Resume</h2>
+  <ul class="daftar">
+    <li><a href="resume/batas-waktu.html">Batas waktu pelaporan dan pembayaran<small>Perlu dimutakhirkan ke PMK 81/2024</small></a></li>
+    <li><a href="resume/ptkp.html">Penghasilan Tidak Kena Pajak (PTKP)</a></li>
+  </ul>
+</section>
+
+<section class="bagian-beranda" aria-labelledby="h-alat">
+  <h2 id="h-alat">Alat hitung</h2>
+  <ul class="daftar">
+    <li><a href="alat/ptkp.html">Hitung PTKP<small>Dari status kawin dan jumlah tanggungan</small></a></li>
+    <li><a href="alat/pasal-31e.html">Hitung PPh Badan dengan fasilitas Pasal 31E<small>Untuk peredaran bruto sampai Rp50 miliar</small></a></li>
+    <li><span class="nonaktif">Hitung PPh Pasal 21<small>Belum tersedia</small></span></li>
+  </ul>
+</section>
+
+<footer class="kaki">
+  <p>Toolkit Pajak bukan aplikasi resmi dan tidak mewakili Direktorat Jenderal Pajak, Kementerian Keuangan, atau instansi pemerintah mana pun.</p>
+  <p><a href="tentang.html">Tentang dan sumber</a><a href="privasi.html">Kebijakan privasi</a></p>
+  <p>Versi 2.0</p>
+</footer>
+</main>
+<button class="ke-atas" type="button" hidden aria-label="Kembali ke atas">↑</button>
+<script src="./assets/js/app.js"></script>
+</body>
+</html>

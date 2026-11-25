@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id" data-akar="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hitung Pasal 31E — Toolkit Pajak</title>
+<meta name="description" content="Naskah UU perpajakan Indonesia, persandingan perubahan, dan alat hitung. Bukan aplikasi resmi pemerintah.">
+<meta name="theme-color" content="#0e6b4c">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body class="">
+<a class="sr" href="#isi">Langsung ke isi</a>
+<header class="bar">
+  <a class="bar-home" href="../index.html"><img src="../icons/icon-192.png" alt=""><span>Toolkit Pajak</span></a>
+  <span class="bar-judul">Hitung Pasal 31E</span>
+  <a class="bar-cari" href="../cari.html">Cari</a>
+</header>
+<main id="isi">
+<h1>PPh Badan dengan fasilitas Pasal 31E</h1>
+<p class="dasar">Wajib Pajak badan dalam negeri dengan peredaran bruto sampai Rp50 miliar mendapat pengurangan tarif 50% atas Penghasilan Kena Pajak dari bagian peredaran bruto sampai Rp4,8 miliar (<a href="../uu/pph.html#pasal-31e">Pasal 31E UU PPh</a>). Tarif umum badan 22% (<a href="../uu/pph.html#pasal-17">Pasal 17 ayat (1) huruf b</a>).</p>
+<form class="isian" onsubmit="return false">
+  <label>Peredaran bruto setahun
+    <input id="omzet" inputmode="numeric" autocomplete="off" placeholder="mis. 12.000.000.000">
+  </label>
+  <label>Penghasilan Kena Pajak
+    <input id="pkp" inputmode="numeric" autocomplete="off" placeholder="mis. 1.500.000.000">
+    <span class="bantu">Dibulatkan ke bawah dalam ribuan rupiah penuh (Pasal 17 ayat (4)).</span>
+  </label>
+</form>
+<p class="hasil-besar" id="total" aria-live="polite"></p>
+<table class="rincian" id="rinci"></table>
+<p class="dasar" id="pesan"></p>
+<div class="catatan"><strong>Batasan.</strong> Alat ini tidak memperhitungkan Wajib Pajak yang memakai tarif final PP 55/2022, tarif Pasal 17 ayat (2b) bagi perseroan terbuka, maupun kredit pajak. Hasilnya untuk gambaran, bukan pengganti penghitungan dalam SPT.</div>
+<script>
+function rp(n){return "Rp" + Math.round(n).toLocaleString("id-ID");}
+function angka(el){var v=(el.value||"").replace(/[^0-9]/g,"");return v?parseInt(v,10):NaN;}
+function rapikan(el){var n=angka(el);el.value=isNaN(n)?"":n.toLocaleString("id-ID");}
+</script>
+<script>
+var TARIF=0.22, BATAS_FASILITAS=4800000000, BATAS_OMZET=50000000000;
+function hitung(){
+  var o=angka(document.getElementById("omzet")), p=angka(document.getElementById("pkp"));
+  var total=document.getElementById("total"), rinci=document.getElementById("rinci"), pesan=document.getElementById("pesan");
+  total.textContent=""; rinci.innerHTML=""; pesan.textContent="";
+  if(isNaN(o)||isNaN(p)){ pesan.textContent="Isi peredaran bruto dan Penghasilan Kena Pajak untuk melihat hasil."; return; }
+  if(o<=0){ pesan.textContent="Peredaran bruto harus lebih dari nol."; return; }
+  p=Math.floor(p/1000)*1000;
+  var baris=[["Penghasilan Kena Pajak (dibulatkan)",p]], pajak;
+  if(o>BATAS_OMZET){
+    pajak=TARIF*p;
+    baris.push(["Peredaran bruto di atas Rp50 miliar: tidak mendapat fasilitas. "+(TARIF*100)+"% × PKP",pajak]);
+  } else {
+    var fas = o<=BATAS_FASILITAS ? p : (BATAS_FASILITAS/o)*p;
+    var non = p-fas;
+    baris.push(["PKP yang mendapat fasilitas"+(o>BATAS_FASILITAS?" (Rp4,8 miliar ÷ "+rp(o)+" × PKP)":" (seluruhnya)"),fas]);
+    baris.push(["PKP tanpa fasilitas",non]);
+    var a=0.5*TARIF*fas, b=TARIF*non; pajak=a+b;
+    baris.push([(TARIF*50).toLocaleString("id-ID")+"% × PKP dengan fasilitas",a]);
+    baris.push([(TARIF*100)+"% × PKP tanpa fasilitas",b]);
+  }
+  total.textContent=rp(pajak);
+  rinci.innerHTML=baris.map(function(x){return "<tr><td>"+x[0]+"</td><td>"+rp(x[1])+"</td></tr>";}).join("")+
+    "<tr class='total'><td>PPh terutang setahun</td><td>"+rp(pajak)+"</td></tr>";
+}
+["omzet","pkp"].forEach(function(id){var el=document.getElementById(id);
+  el.addEventListener("input",hitung); el.addEventListener("blur",function(){rapikan(el);});});
+hitung();
+</script>
+
+</main>
+<button class="ke-atas" type="button" hidden aria-label="Kembali ke atas">↑</button>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

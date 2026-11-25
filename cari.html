@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id" data-akar="./">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cari — Toolkit Pajak</title>
+<meta name="description" content="Naskah UU perpajakan Indonesia, persandingan perubahan, dan alat hitung. Bukan aplikasi resmi pemerintah.">
+<meta name="theme-color" content="#0e6b4c">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="preload" href="./assets/fonts/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="./assets/css/app.css">
+</head>
+<body class="">
+<a class="sr" href="#isi">Langsung ke isi</a>
+<header class="bar">
+  <a class="bar-home" href="./index.html"><img src="./icons/icon-192.png" alt=""><span>Toolkit Pajak</span></a>
+  <span class="bar-judul">Cari</span>
+  <a class="bar-cari" href="./cari.html">Cari</a>
+</header>
+<main id="isi">
+<h1>Cari di semua naskah</h1>
+<form id="form-cari" class="kotak-cari" role="search">
+  <label class="sr" for="q">Kata kunci</label>
+  <input id="q" name="q" type="search" placeholder="mis. pasal 17 pph, NPWP, imbalan bunga" autocomplete="off" autofocus>
+  <button class="tombol" type="submit">Cari</button>
+</form>
+<p id="status-cari" class="status-cari" aria-live="polite"></p>
+<ul id="hasil-cari" class="hasil-cari"></ul>
+</main>
+<button class="ke-atas" type="button" hidden aria-label="Kembali ke atas">↑</button>
+<script src="./assets/js/app.js"></script>
+<script src="assets/js/cari.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id" data-akar="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hitung PTKP — Toolkit Pajak</title>
+<meta name="description" content="Naskah UU perpajakan Indonesia, persandingan perubahan, dan alat hitung. Bukan aplikasi resmi pemerintah.">
+<meta name="theme-color" content="#0e6b4c">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body class="">
+<a class="sr" href="#isi">Langsung ke isi</a>
+<header class="bar">
+  <a class="bar-home" href="../index.html"><img src="../icons/icon-192.png" alt=""><span>Toolkit Pajak</span></a>
+  <span class="bar-judul">Hitung PTKP</span>
+  <a class="bar-cari" href="../cari.html">Cari</a>
+</header>
+<main id="isi">
+<h1>Hitung PTKP</h1>
+<p class="dasar">Berdasarkan Pasal 7 ayat (1) UU PPh dan PMK-101/PMK.010/2016. Status dan tanggungan ditentukan menurut keadaan pada awal tahun pajak.</p>
+<form class="isian" id="f" onsubmit="return false">
+  <label>Status
+    <select id="status">
+      <option value="TK">Tidak kawin (TK)</option>
+      <option value="K">Kawin (K)</option>
+      <option value="KI">Kawin, penghasilan istri digabung (K/I)</option>
+    </select>
+  </label>
+  <label>Jumlah tanggungan
+    <select id="tanggungan"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+    <span class="bantu">Paling banyak 3 orang: keluarga sedarah/semenda garis lurus dan anak angkat yang menjadi tanggungan sepenuhnya.</span>
+  </label>
+</form>
+<p class="dasar" id="kode"></p>
+<p class="hasil-besar" id="total" aria-live="polite"></p>
+<table class="rincian" id="rinci"></table>
+<div class="catatan"><strong>Besaran dapat berubah.</strong> Pemerintah sedang membahas penyesuaian PTKP untuk 2027. Angka di sini perlu diperbarui bila PMK baru terbit.</div>
+<script>
+function rp(n){return "Rp" + Math.round(n).toLocaleString("id-ID");}
+function angka(el){var v=(el.value||"").replace(/[^0-9]/g,"");return v?parseInt(v,10):NaN;}
+function rapikan(el){var n=angka(el);el.value=isNaN(n)?"":n.toLocaleString("id-ID");}
+</script>
+<script>
+var PTKP = { diri: 54000000, kawin: 4500000, istri: 54000000, tanggungan: 4500000 };
+function hitung(){
+  var st=document.getElementById("status").value, n=parseInt(document.getElementById("tanggungan").value,10);
+  var baris=[["Untuk diri Wajib Pajak",PTKP.diri]];
+  if(st!=="TK") baris.push(["Tambahan Wajib Pajak kawin",PTKP.kawin]);
+  if(st==="KI") baris.push(["Tambahan istri yang penghasilannya digabung",PTKP.istri]);
+  if(n>0) baris.push(["Tanggungan ("+n+" × "+rp(PTKP.tanggungan)+")",n*PTKP.tanggungan]);
+  var tot=baris.reduce(function(a,b){return a+b[1];},0);
+  document.getElementById("kode").textContent="Status "+(st==="KI"?"K/I":st)+"/"+n+", per tahun";
+  document.getElementById("total").textContent=rp(tot);
+  document.getElementById("rinci").innerHTML=baris.map(function(b){return "<tr><td>"+b[0]+"</td><td>"+rp(b[1])+"</td></tr>";}).join("")+
+    "<tr class='total'><td>Jumlah PTKP setahun</td><td>"+rp(tot)+"</td></tr><tr><td>Setara per bulan</td><td>"+rp(tot/12)+"</td></tr>";
+}
+document.getElementById("status").addEventListener("change",hitung);
+document.getElementById("tanggungan").addEventListener("change",hitung);
+hitung();
+</script>
+
+</main>
+<button class="ke-atas" type="button" hidden aria-label="Kembali ke atas">↑</button>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
