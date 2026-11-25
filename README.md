@@ -1,39 +1,72 @@
-# Toolkit Pajak (PWA) — panduan singkat
+# Toolkit Pajak
 
-Folder ini adalah aplikasi web lengkap. Tidak perlu server khusus: cukup diunggah ke hosting statis gratis.
+Aplikasi web untuk membaca cepat undang-undang perpajakan Indonesia di HP: susunan dalam satu naskah UU KUP, PPh, PPN, PBB, Bea Meterai, dan PPSP, persandingan perubahan oleh UU Cipta Kerja dan UU HPP, pencarian pasal, dan alat hitung sederhana. Bisa dipasang di HP dan dibaca tanpa internet.
 
-## Menerbitkan di GitHub Pages (sekali saja)
+**Buka aplikasinya:** https://furqonnurhandono.github.io/toolkitpajak/
 
-1. Buat akun di github.com.
-2. Buat repository baru, misalnya `toolkitpajak`, pilih **Public**.
-3. Di repository itu pilih **Add file → Upload files**, lalu seret **isi** folder ini (bukan foldernya) ke halaman unggah. Klik **Commit changes**.
-4. Buka **Settings → Pages**. Pada *Source* pilih **Deploy from a branch**, branch **main**, folder **/ (root)**, lalu **Save**.
-5. Tunggu 1–2 menit. Alamatnya: `https://NAMA-AKUN.github.io/toolkitpajak/`
-6. Buka alamat itu di HP dengan Chrome, lalu ketuk **Pasang di HP** (atau menu ⋮ → *Tambahkan ke layar utama*).
+Toolkit Pajak bukan aplikasi resmi dan tidak mewakili Direktorat Jenderal Pajak, Kementerian Keuangan, atau instansi pemerintah mana pun. Untuk keperluan hukum, rujuk naskah resmi peraturan.
 
-## Mengubah isi
+## Ikut mengembangkan
 
-- Setiap halaman adalah HTML biasa: `uu/` (naskah UU), `persandingan/`, `resume/`, `alat/`, serta `index.html`, `tentang.html`, `privasi.html`.
-- Edit berkasnya, lalu unggah ulang ke GitHub. Pengguna mendapat versi baru saat membuka aplikasi berikutnya (aplikasi memperbarui dirinya di latar belakang).
-- **Halaman baru**: tambahkan juga nama berkasnya ke daftar `DAFTAR` di `sw.js` agar ikut tersimpan untuk dibaca offline.
-- **Pencarian**: indeksnya ada di `assets/data/cari.json`. Bila isi pasal diubah banyak, minta indeks dibangun ulang.
-- Gaya tampilan ada di `assets/css/app.css`; perilaku (saring, lompat pasal, pasang aplikasi) di `assets/js/app.js`.
+Bantuan apa pun sangat berarti, terutama dari yang paham substansi pajak. Tidak harus bisa coding.
 
-## Struktur pasal
+### Melaporkan kesalahan atau pasal yang belum mutakhir
 
-```html
-<details class="pasal" id="pasal-2">
-  <summary><span class="kata">Pasal</span> <span class="no">2</span></summary>
-  <div class="isi">
-    <p>(1) Bunyi ayat …</p>
-    <details class="penjelasan"><summary>Penjelasan</summary><div class="isi"><p>…</p></div></details>
-  </div>
-</details>
-```
+1. Buka tab **Issues** di repository ini, lalu **New issue**.
+2. Tuliskan UU dan pasalnya (misalnya *UU KUP Pasal 13 ayat (2)*), apa yang keliru, dan dasar hukum yang benar beserta tautannya bila ada (JDIH BPK, JDIH Kemenkeu, atau pajak.go.id).
+3. Klik **Submit new issue**. Perlu akun GitHub (gratis).
 
-## Yang masih perlu dikerjakan
+### Mengusulkan perubahan langsung
+
+1. Buka berkas yang ingin diubah, misalnya `uu/kup.html`, lalu klik ikon pensil (**Edit this file**).
+2. Ubah isinya. Setiap pasal ditulis dengan pola berikut:
+
+   ```html
+   <details class="pasal" id="pasal-2">
+     <summary><span class="kata">Pasal</span> <span class="no">2</span></summary>
+     <div class="isi">
+       <p>(1) Bunyi ayat … <span class="ubah" title="Perubahan Keenam (UU Nomor 7 Tahun 2021)">******)</span></p>
+       <details class="penjelasan"><summary>Penjelasan</summary><div class="isi"><p>…</p></div></details>
+     </div>
+   </details>
+   ```
+
+3. Di bawah, tulis ringkasan perubahan, pilih **Create a new branch … and start a pull request**, lalu **Propose changes**. Pengelola akan memeriksa sebelum perubahan tayang.
+
+### Pekerjaan yang masih terbuka
 
 - Persandingan per pasal UU KUP (28 halaman) belum ada.
-- Resume batas waktu masih mengacu PMK-243/2014 (sudah dicabut PMK 81/2024).
-- Kalkulator PPh 21 (skema TER) belum dibuat.
-- Pastikan lisensi gambar ikon (`icons/`) mengizinkan dipakai tanpa atau dengan atribusi.
+- Resume batas waktu masih mengacu PMK-243/PMK.03/2014, yang telah dicabut PMK 81 Tahun 2024.
+- Kalkulator PPh Pasal 21 skema TER (PP 58/2023 dan PMK 168/2023) belum dibuat.
+- Perubahan undang-undang setelah UU HPP belum dimasukkan.
+- Lisensi gambar ikon (`icons/`) perlu dipastikan.
+
+## Untuk pengelola
+
+### Isi repository
+
+| Letak | Isi |
+|---|---|
+| `index.html`, `cari.html`, `tentang.html`, `privasi.html` | Beranda, pencarian, tentang, kebijakan privasi |
+| `uu/` | Naskah enam UU |
+| `persandingan/` | Matriks dan halaman persandingan per pasal |
+| `resume/` | Resume batas waktu dan PTKP |
+| `alat/` | Kalkulator PTKP dan Pasal 31E |
+| `assets/` | Tampilan (`css/`), perilaku (`js/`), huruf (`fonts/`), indeks pencarian (`data/cari.json`) |
+| `sw.js`, `manifest.webmanifest`, `icons/` | Bagian yang membuat aplikasi bisa dipasang dan dibaca offline |
+| `tools/` | Skrip perawatan (tidak ikut tersimpan di HP pengguna) |
+
+### Setelah mengubah atau menambah halaman
+
+```
+pip install beautifulsoup4
+python3 tools/perbarui.py
+```
+
+Skrip ini membangun ulang indeks pencarian (`assets/data/cari.json`) dan memperbarui daftar berkas offline serta nomor versi di `sw.js`. Commit hasilnya bersama halaman yang diubah. HP pengguna mengambil versi baru saat aplikasi dibuka berikutnya.
+
+`tools/konversi-dari-apk.py` hanya arsip: skrip sekali pakai yang dulu mengubah halaman APK lama menjadi aplikasi ini.
+
+### Penerbitan
+
+Situs diterbitkan otomatis oleh GitHub Pages dari branch `main`, folder `/` (root). Perubahan yang masuk ke `main` tayang dalam beberapa menit.
