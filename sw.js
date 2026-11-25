@@ -1,7 +1,7 @@
 /* Toolkit Pajak — service worker
    Semua berkas disimpan saat pemasangan, sehingga aplikasi bisa dibuka tanpa internet.
    VERSI dan DAFTAR diisi otomatis oleh skrip build. */
-var VERSI = "61858ebb8c";
+var VERSI = "32d6817c8d";
 var DAFTAR = [
  "./",
  "alat/pasal-31e.html",
