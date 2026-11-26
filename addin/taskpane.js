@@ -116,8 +116,10 @@
       atur.uu = k;
       atur.pasal[k] = p.id;
       simpanAtur();
-      if (sorot) sorotKata(isi, sorot);
       main.scrollTop = 0;
+      if (sorot) sorotKata(isi, sorot);
+      // Blok lama milik pasal lain: lepas supaya rujukan di bawah tidak menyesatkan
+      if (blok && (blok.uu !== k || blok.pasal !== p.no)) { blok = null; perbarui(); }
     }).catch(function (e) {
       $("naskah").innerHTML = "";
       pesan("Naskah tidak bisa dimuat (" + e.message + "). Periksa koneksi internet.", true);
