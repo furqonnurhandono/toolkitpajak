@@ -27,7 +27,7 @@ AKAR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 URUTAN_UU = ["kup", "pph", "ppn", "pbb", "bm", "ppsp"]
 # Berkas yang tidak perlu disimpan di HP pengguna
 LEWATI = {"sw.js", "README.md", "CONTRIBUTING.md", "LICENSE"}
-FOLDER_LEWATI = ("tools/", ".github/", ".git/")
+FOLDER_LEWATI = ("tools/", ".github/", ".git/", "addin/")  # add-in Office tidak perlu disimpan di HP
 
 
 def rapikan(teks):

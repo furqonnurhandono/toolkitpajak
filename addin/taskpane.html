@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toolkit Pajak — Kutip UU</title>
+<!-- Office.js hanya dimuat di halaman add-in ini; PWA utama tetap tanpa CDN. -->
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+<header class="atas">
+  <div class="baris">
+    <label class="sr" for="pilih-uu">Undang-undang</label>
+    <select id="pilih-uu"></select>
+    <button id="tombol-atur" class="ikon" type="button" title="Pengaturan" aria-label="Pengaturan">⚙</button>
+  </div>
+  <div class="baris">
+    <button id="mundur" class="ikon" type="button" aria-label="Pasal sebelumnya">‹</button>
+    <label class="sr" for="pilih-pasal">Pasal</label>
+    <select id="pilih-pasal"></select>
+    <button id="maju" class="ikon" type="button" aria-label="Pasal berikutnya">›</button>
+  </div>
+  <div class="baris">
+    <label class="sr" for="saring">Cari nomor pasal atau kata</label>
+    <input id="saring" type="search" placeholder="Nomor pasal (17B) atau kata" autocomplete="off">
+  </div>
+  <p id="info-saring" class="kecil" aria-live="polite"></p>
+</header>
+
+<main id="naskah" aria-live="polite"><p class="kecil">Memuat naskah…</p></main>
+
+<section class="bawah" aria-label="Kutip">
+  <div id="rujukan" class="rujukan kosong">Blok teks pasal yang mau dikutip.</div>
+  <div class="pola" role="radiogroup" aria-label="Pola kalimat">
+    <button type="button" data-pola="A" role="radio" title="Rujukan saja, mis. kolom dasar hukum">A Rujukan</button>
+    <button type="button" data-pola="B" role="radio" title="Berdasarkan Pasal …,">B Berdasarkan</button>
+    <button type="button" data-pola="C" role="radio" title="… sebagaimana diatur dalam Pasal …">C Sebagaimana</button>
+    <button type="button" data-pola="D" role="radio" title="Pasal … mengatur bahwa “…”">D Kutip</button>
+    <button type="button" data-pola="E" role="radio" title="Pasal … mengatur hal-hal sebagai berikut : + isi">E Blok</button>
+    <button type="button" data-pola="F" role="radio" title="UU … mengatur hal-hal sebagai berikut : a. Pasal … b. Pasal …">F Per UU</button>
+  </div>
+  <pre id="pratinjau" class="pratinjau" aria-label="Pratinjau"></pre>
+  <div id="pilihan-excel" class="pilihan-excel" hidden>
+    <label class="sr" for="mode-excel">Cara mengisi sel</label>
+    <select id="mode-excel">
+      <option value="ganti">Ganti isi sel</option>
+      <option value="tambah">Tambahkan di akhir sel</option>
+      <option value="bawah">Isi ke bawah, satu baris per bagian</option>
+    </select>
+  </div>
+  <div class="aksi">
+    <button id="sisipkan" type="button" class="utama">Sisipkan</button>
+    <button id="ke-keranjang" type="button">+ Keranjang</button>
+    <button id="buka-keranjang" type="button" aria-expanded="false">Keranjang <span id="jumlah-keranjang">0</span></button>
+  </div>
+  <div id="keranjang" class="keranjang" hidden>
+    <ol id="isi-keranjang"></ol>
+    <div class="aksi">
+      <button id="sisipkan-keranjang" type="button" class="utama">Sisipkan isi keranjang</button>
+      <button id="kosongkan" type="button">Kosongkan</button>
+    </div>
+  </div>
+  <p id="pesan" class="pesan" role="status"></p>
+</section>
+
+<dialog id="atur">
+  <form method="dialog">
+    <h2>Pengaturan</h2>
+    <fieldset>
+      <legend>Penulisan</legend>
+      <label>Kata ayat <select name="ayat"><option>Ayat</option><option>ayat</option></select></label>
+      <label>Juncto <select name="juncto"><option>j.o.</option><option>jo.</option><option>juncto</option></select></label>
+      <label>Sebutan UU
+        <select name="sebutan">
+          <option value="singkat">Singkat (UU KUP)</option>
+          <option value="sedang">Sedang (UU No.6 Tahun 1983 s.t.d.t.d. UU No.6 Tahun 2023)</option>
+          <option value="lengkap">Lengkap (Undang-Undang Nomor 6 Tahun 1983 tentang …)</option>
+        </select>
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Kalimat pengantar</legend>
+      <p class="kecil">Isian: {dasar} = rujukan + nama UU, {induk} = pasal/ayat induk + nama UU, {rujukan} = rujukan tanpa UU, {uu} = nama UU, {isi} = teks yang dikutip.</p>
+      <label>A <input name="tA"></label>
+      <label>B <input name="tB"></label>
+      <label>C <input name="tC"></label>
+      <label>D <input name="tD"></label>
+      <label>E <input name="tE"></label>
+      <label>F <input name="tF"></label>
+    </fieldset>
+    <fieldset id="atur-uu">
+      <legend>Nama undang-undang</legend>
+    </fieldset>
+    <div class="aksi">
+      <button value="simpan" class="utama">Simpan</button>
+      <button value="batal">Batal</button>
+      <button value="bawaan" type="button" id="kembalikan">Kembalikan bawaan</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="kutip.js"></script>
+<script src="taskpane.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Toolkit Pajak: add-in Word & Excel untuk membaca dan mengutip naskah UU perpajakan.
+     Cara memasang: lihat README bagian "Add-in Word & Excel". -->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+  <Id>3a0e1e62-ba39-4f65-8158-0fc68111938a</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Toolkit Pajak</ProviderName>
+  <DefaultLocale>id-ID</DefaultLocale>
+  <DisplayName DefaultValue="Toolkit Pajak"/>
+  <Description DefaultValue="Baca naskah UU perpajakan dan kutip pasalnya langsung ke Word atau Excel, lengkap dengan rujukan Pasal, Ayat, dan huruf."/>
+  <IconUrl DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/ikon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/ikon-64.png"/>
+  <SupportUrl DefaultValue="https://github.com/furqonnurhandono/toolkitpajak"/>
+  <AppDomains>
+    <AppDomain>https://furqonnurhandono.github.io</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Document"/>
+    <Host Name="Workbook"/>
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/taskpane.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="Mulai.Judul"/>
+            <Description resid="Mulai.Isi"/>
+            <LearnMoreUrl resid="Panduan.Url"/>
+          </GetStarted>
+          <FunctionFile resid="Perintah.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="TKP.Grup.Word">
+                <Label resid="Grup.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Ikon.16"/>
+                  <bt:Image size="32" resid="Ikon.32"/>
+                  <bt:Image size="80" resid="Ikon.80"/>
+                </Icon>
+                <Control xsi:type="Button" id="TKP.Tombol.Word">
+                  <Label resid="Tombol.Label"/>
+                  <Supertip>
+                    <Title resid="Tombol.Label"/>
+                    <Description resid="Tombol.Tip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Ikon.16"/>
+                    <bt:Image size="32" resid="Ikon.32"/>
+                    <bt:Image size="80" resid="Ikon.80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>TKPKutip</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="Mulai.Judul"/>
+            <Description resid="Mulai.Isi"/>
+            <LearnMoreUrl resid="Panduan.Url"/>
+          </GetStarted>
+          <FunctionFile resid="Perintah.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="TKP.Grup.Excel">
+                <Label resid="Grup.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Ikon.16"/>
+                  <bt:Image size="32" resid="Ikon.32"/>
+                  <bt:Image size="80" resid="Ikon.80"/>
+                </Icon>
+                <Control xsi:type="Button" id="TKP.Tombol.Excel">
+                  <Label resid="Tombol.Label"/>
+                  <Supertip>
+                    <Title resid="Tombol.Label"/>
+                    <Description resid="Tombol.Tip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Ikon.16"/>
+                    <bt:Image size="32" resid="Ikon.32"/>
+                    <bt:Image size="80" resid="Ikon.80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>TKPKutip</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Ikon.16" DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/ikon-16.png"/>
+        <bt:Image id="Ikon.32" DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/ikon-32.png"/>
+        <bt:Image id="Ikon.80" DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/ikon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/taskpane.html"/>
+        <bt:Url id="Perintah.Url" DefaultValue="https://furqonnurhandono.github.io/toolkitpajak/addin/perintah.html"/>
+        <bt:Url id="Panduan.Url" DefaultValue="https://github.com/furqonnurhandono/toolkitpajak#add-in-word--excel"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="Grup.Label" DefaultValue="Toolkit Pajak"/>
+        <bt:String id="Tombol.Label" DefaultValue="Kutip UU"/>
+        <bt:String id="Mulai.Judul" DefaultValue="Toolkit Pajak sudah terpasang"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="Tombol.Tip" DefaultValue="Buka naskah UU perpajakan di panel samping, blok teks pasal, lalu sisipkan kutipan beserta rujukannya."/>
+        <bt:String id="Mulai.Isi" DefaultValue="Klik Kutip UU di tab Home untuk membuka panel."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
